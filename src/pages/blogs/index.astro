@@ -1,0 +1,70 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+
+//microCMS呼び出し
+import { getBlogs, getBlogDetail } from '@/lib/microcms.ts'
+const { contents: posts } = await getBlogs({
+  fields: ['id', 'title', 'publishedAt', 'category', 'tags'],
+})
+console.table(posts)
+---
+
+<DefaultLayout>
+  <meta charset="UTF-8" />
+  <ul>
+    {
+      posts.map((post) => (
+        <li>
+          <div class="flex">
+            <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('ja-JP')}</time>
+            <div class="tag-wrap">
+              {post.tags.map((tag: string) => (
+                <span class="tag">{tag.name}</span>
+              ))}
+            </div>
+          </div>
+          <a href={`/blog/${post.id}`}>{post.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</DefaultLayout>
+
+<style lang="scss">
+  li {
+    margin-bottom: 1em;
+  }
+  li:last-child {
+    margin-bottom: unset;
+  }
+  .mb-1em {
+    margin-bottom: 1em;
+  }
+  .flex {
+    display: flex;
+    margin-bottom: 0.5em;
+  }
+  time {
+    margin-right: 1em;
+  }
+  .tag-wrap {
+    display: flex;
+    font-size: 0.75em;
+  }
+  .tag {
+    background-color: #99e2cc;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25em;
+    border: 1px solid;
+    border-radius: 8px;
+    margin-right: 0.5em;
+  }
+
+  .Hstack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
