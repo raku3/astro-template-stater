@@ -1,0 +1,47 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import Hero from '@/components/Hero.astro'
+import Feature from '@/components/Feature.astro'
+import Counter from '@/components/Counter.astro'
+import ContentMedia from '@/components/ContentMedia.astro'
+import Picture from 'astro/components/Picture.astro'
+import { Image } from 'astro:assets'
+import myImage from '@/assets/img/niku_manga.png'
+import my1 from '@/assets/img/campaign_25000_fukidashi_sp.png'
+import my2 from '@/assets/img/campaign_25000_fukidashi.png'
+import my3 from '@/assets/img/campaign_25000_sp.png'
+import my4 from '@/assets/img/campaign_25000.png'
+---
+
+<DefaultLayout title="Home">
+  <main>
+    <h1 class="text_link">astroの画像最適化機能asstesのテスト</h1>
+  </main>
+
+  <div class="inner">
+    <h3>microcmsの記事内の画像がたぶん有料じゃないとwebp変換とかしてくれない気がしたので困った</h3>
+    <p>
+      astroのv3からImageコンポーネントがstableになったぽいのでとりあえずimage toolとか使わない方針で行こうと思う。<br />
+    </p>
+    <div class="Hstack">
+      <Image
+        src="https://images.microcms-assets.io/assets/899324b5cde147e68151e0388e150c84/25a581f3b8504e6aa5e7fa9f93b7639f/niku_manga.png"
+        alt="画像の説明。"
+        height={20}
+        width={200}
+      />
+      <Image
+        src="https://images.microcms-assets.io/assets/899324b5cde147e68151e0388e150c84/25a581f3b8504e6aa5e7fa9f93b7639f/niku_manga.png?fl=webp"
+        alt="画像の説明。"
+        height={20}
+        width={200}
+      />
+      <p>Image Picture</p>
+      <Picture src={myImage} formats={['avif', 'webp']} alt="" />
+      <Picture src={my1} formats={['png']} alt={my1} />
+      <Picture src={my2} formats={['avif', 'webp']} alt="" />
+      <Picture src={my3} formats={['avif', 'webp']} alt="" />
+      <Picture src={my4} formats={['avif', 'webp']} alt="" />
+    </div>
+  </div>
+</DefaultLayout>
